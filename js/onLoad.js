@@ -21,7 +21,9 @@ function beforeOnLoad(){
     for (i = 1 ; i <= numberBeforeOnLoad ;i++){
         text = localStorage.getItem(i);
         newObj = JSON.parse(text);
-        checkIfDateAndTimePass(newObj,i);
+        // if(newObj != null){
+            checkIfDateAndTimePass(newObj,i);
+        // }
     }}
 function checkIfDateAndTimePass(object,numberOfObject){
     // -- get number of notes -- // 
@@ -41,6 +43,7 @@ function checkIfDateAndTimePass(object,numberOfObject){
     hour = parseInt(splitTime[0]);
     minutes = parseInt(splitTime[1]);
     //------ Check ------- //
+    //--- if day pass --- //
     if( year <= dateByNow.yearByNow && mouth <= dateByNow.mouthByNow && day < dateByNow.dayByNow){
     while(numberOfObject < notes + 1){
         localStorage.setItem(numberOfObject, localStorage.getItem(numberOfObject + 1));
@@ -52,7 +55,8 @@ function checkIfDateAndTimePass(object,numberOfObject){
         oldNumber -= 1; 
         localStorage.setItem("numberOfNotesJason", oldNumber);
         numberBeforeOnLoad -= 1 ;
-    } else if (year === dateByNow.yearByNow && mouth === dateByNow.mouthByNow && day === dateByNow.dayByNow && hour <= dateByNow.hourByNow && minutes <= dateByNow.minutesByNow){
+        //--- if hours pass at same day ---- //
+    } else if (year === dateByNow.yearByNow && mouth === dateByNow.mouthByNow && day === dateByNow.dayByNow && hour < dateByNow.hourByNow){
     while(numberOfObject < notes + 1){
         localStorage.setItem(numberOfObject, localStorage.getItem(numberOfObject + 1));
         numberOfObject += 1;
@@ -62,7 +66,20 @@ function checkIfDateAndTimePass(object,numberOfObject){
         oldNumber -= 1; 
         localStorage.setItem("numberOfNotesJason", oldNumber);
         numberBeforeOnLoad -= 1 ;
-        CreateBoxForDeletedNotes(object);     } }
+        CreateBoxForDeletedNotes(object);     }
+        //--- if the same hour and minutes pass -- //
+    else if(year === dateByNow.yearByNow && mouth === dateByNow.mouthByNow && day === dateByNow.dayByNow && hour === dateByNow.hourByNow && minutes <= dateByNow.minutesByNow){
+    while(numberOfObject < notes + 1){
+        localStorage.setItem(numberOfObject, localStorage.getItem(numberOfObject + 1));
+        numberOfObject += 1;
+    }
+        oldNumberGet = localStorage.getItem("numberOfNotesJason");
+        oldNumber = JSON.parse(oldNumberGet);
+        oldNumber -= 1; 
+        localStorage.setItem("numberOfNotesJason", oldNumber);
+        numberBeforeOnLoad -= 1 ;
+        CreateBoxForDeletedNotes(object);   
+    } }
 // -- create text with the deletd task name -- //
 function CreateBoxForDeletedNotes(obj){
     var boxId = document.getElementById('alertDeletedNotes');
