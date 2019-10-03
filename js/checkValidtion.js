@@ -122,6 +122,8 @@ function errorMsgCheckIfOn(inputId){
     }
 //------------ Check the inputs when click send ------- ///
 function checkInputsOnSend(){
+    //-- You could take a date forward and take an hour less than the moment and then return it to today and it would send ,thats why i put check time again. --//
+    checkTime();
     //vars 
     const dateInputValue = document.forms.noteForm.dateInput.value ;
     const dateInput = document.forms.noteForm.dateInput ;
