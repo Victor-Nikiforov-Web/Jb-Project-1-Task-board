@@ -18,7 +18,7 @@ function beforeOnLoad(){
     text = localStorage.getItem("numberOfNotesJason");
     numberBeforeOnLoad = JSON.parse(text);
     //--- check if the date & time passed and delet --- //
-    for (i = 1 ; i < numberBeforeOnLoad+1 ;i++){
+    for (i = 1 ; i <= numberBeforeOnLoad ;i++){
         text = localStorage.getItem(i);
         newObj = JSON.parse(text);
         checkIfDateAndTimePass(newObj,i);
