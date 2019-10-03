@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- Date Picker -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <!-- Time Picker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.js" integrity="sha256-nTk/a8Kql0uKPMcUKZ7luVTLQzohljLoRxiP5U1oT7Q=" crossorigin="anonymous"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js" integrity="sha256-bmXHkMKAxMZgr2EehOetiN/paT9LXp0KKAKnLpYlHwE=" crossorigin="anonymous"></script>   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.css" integrity="sha256-4zmTXfA1u+L/3UWfbkPTMAsb5pNv45V8/b1uwJEdiAs=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css" integrity="sha256-Sv44mRstp+agwCWaPO4R+KKV+Az9Cu+qS5/hNRQlHT0=" crossorigin="anonymous" />
+    <!-- My Js & Css -->
+    <link rel="stylesheet" href="index.css">
+    <script src="js/index.js"></script>
+    <script src="js/checkValidtion.js"></script>
+    <script src="js/onLoad.js"></script>
+    <!-------------------------------------------->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Project - 1</title>
+</head>
+<body onload="onLoad();">
+<div class="container text-center">
+    <!--- title of page --->
+    <h1 id="h1title">My Task Board</h1>
+    <!-- div for delet notes when page load -->
+    <div id="alertDeletedNotes"></div>
+    <!-- Form -->
+    <form class="d-flex flex-column bd-highlight mb-3" name="noteForm" id="noteForm">
+        <label>Task description :</label>
+        <textarea rows="4" cols="50" class="form-control" name="taskDes" id="taskName" onchange="checkValidationDescription();" placeholder="enter your task!" required></textarea>
+        <label>Pick date for the task :</label>
+        <input class="form-control" type="text" name="dateInput" id="datepicker" onchange="checkDate();" placeholder="You can chose from today and on" required />
+        <label>Pick time for the tesk :</label>
+        <input class="form-control" type="text" name="timePicker" id="timePicker" onchange="checkTime();" placeholder="You can pick time from now and on"/>
+        <!-- Div for put the buttons in one line-->
+        <div class="d-flex justify-content-center" >
+        <button type="button" class="btn btn-primary" id="buttonsMargin" onclick="clickButton();">Send task</button>
+        <button type="button" class="btn btn-danger" id="buttonsMargin" onclick="clearForm();">Reset form</button>
+        <button type="button" class="btn btn-warning" id="buttonsMargin" onclick="localStorage.clear();location.reload();">Clear all notes</button>
+        </div>
+    </form>
+        <!-- /Form -->
+        <!-- Div for the notes -->
+    <div id="notes" class="row"></div>
+</div>
+<script>
+    // Data picker .
+    $(function() {
+  $('#datepicker').daterangepicker({
+    singleDatePicker: true,
+    showDropdowns: true,
+    minYear: 2019,
+    maxYear: 2030
+     }, function(start, end, label) {
+    var years = moment().diff(start, 'years');
+    });
+    });
+    // time picker    
+    $('#timePicker').timepicker({showMeridian: false});
+</script>
+</body>
+</html>
