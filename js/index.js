@@ -2,10 +2,8 @@ var checkValidDesc = false;
 var checkValidDate = false;
 var checkValidTime = false;
 var errorMsgOn = false;
-var memoryArr = false;
 var noteIcon = false;
 var noteIdNumber = 1;
-var notes = new Array(); // i want only 8 notes.
 var formInputs = {task : "",date : "" ,time : ""};
 //----------------------------------------------------
 function clickButton(){
@@ -29,6 +27,7 @@ function clickButton(){
         localStorage.setItem("numberOfNotesJason", theUpdatedNum);
         createNote(formInputs.task,document.forms.noteForm[1].value,formInputs.time);
         clearForm();
+        checkValidDesc = false ;
         //----------Remove error msg becuse the form is ok . -----------//
         if(errorMsgOn === true){
             removeMsg();

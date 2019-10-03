@@ -8,12 +8,13 @@ body{
     background-image: url("imgs/tile.jpg");
 }
 #h1title{
+    border-radius: 50px;
     font-family: 'Big Shoulders Display', cursive;
     font-size: 80px;
     color: white;
     border: 2px solid black;
     margin-top: 2px;
-    background-color: #a2b9bc;
+    background-color: #4285F4;
 }
 #noteForm{
     background-image: url("imgs/formbg.jpg");
