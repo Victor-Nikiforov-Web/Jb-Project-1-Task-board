@@ -7,23 +7,20 @@ function onLoad(){
     // -- if there is no notes clear the memory -- //
     if(noteslength === 0){
     localStorage.clear();}
-    //-------------------------
+    //print all the notes.
     for(i = 1 ; i < noteslength + 1 ;i++){
-        //print all the notes.
-        text = localStorage.getItem(i);
-        newObj = JSON.parse(text);
-        createNote(newObj.task,newObj.date,newObj.time);
+    text = localStorage.getItem(i);
+    newObj = JSON.parse(text);
+    createNote(newObj.task,newObj.date,newObj.time);
     }}
 function beforeOnLoad(){
     text = localStorage.getItem("numberOfNotesJason");
     numberBeforeOnLoad = JSON.parse(text);
     //--- check if the date & time passed and delet --- //
     for (i = 1 ; i <= numberBeforeOnLoad ;i++){
-        text = localStorage.getItem(i);
-        newObj = JSON.parse(text);
-        // if(newObj != null){
-            checkIfDateAndTimePass(newObj,i);
-        // }
+    text = localStorage.getItem(i);
+    newObj = JSON.parse(text);
+    checkIfDateAndTimePass(newObj,i);
     }}
 function checkIfDateAndTimePass(object,numberOfObject){
     // -- get number of notes -- // 
@@ -50,33 +47,27 @@ function checkIfDateAndTimePass(object,numberOfObject){
         numberOfObject += 1;
         }
         CreateBoxForDeletedNotes(object);
-        oldNumberGet = localStorage.getItem("numberOfNotesJason");
-        oldNumber = JSON.parse(oldNumberGet);
-        oldNumber -= 1; 
-        localStorage.setItem("numberOfNotesJason", oldNumber);
+        notes -= 1;
+        localStorage.setItem("numberOfNotesJason", notes);
         numberBeforeOnLoad -= 1 ;
-        //--- if hours pass at same day ---- //
+    //--- if hours pass at same day ---- //
     } else if (year === dateByNow.yearByNow && mouth === dateByNow.mouthByNow && day === dateByNow.dayByNow && hour < dateByNow.hourByNow){
     while(numberOfObject < notes + 1){
         localStorage.setItem(numberOfObject, localStorage.getItem(numberOfObject + 1));
         numberOfObject += 1;
     }
-        oldNumberGet = localStorage.getItem("numberOfNotesJason");
-        oldNumber = JSON.parse(oldNumberGet);
-        oldNumber -= 1; 
-        localStorage.setItem("numberOfNotesJason", oldNumber);
+        notes -= 1;
+        localStorage.setItem("numberOfNotesJason", notes);
         numberBeforeOnLoad -= 1 ;
         CreateBoxForDeletedNotes(object);     }
-        //--- if the same hour and minutes pass -- //
+    //--- if the same hour and minutes pass -- //
     else if(year === dateByNow.yearByNow && mouth === dateByNow.mouthByNow && day === dateByNow.dayByNow && hour === dateByNow.hourByNow && minutes <= dateByNow.minutesByNow){
     while(numberOfObject < notes + 1){
         localStorage.setItem(numberOfObject, localStorage.getItem(numberOfObject + 1));
         numberOfObject += 1;
     }
-        oldNumberGet = localStorage.getItem("numberOfNotesJason");
-        oldNumber = JSON.parse(oldNumberGet);
-        oldNumber -= 1; 
-        localStorage.setItem("numberOfNotesJason", oldNumber);
+        notes -= 1;
+        localStorage.setItem("numberOfNotesJason", notes);
         numberBeforeOnLoad -= 1 ;
         CreateBoxForDeletedNotes(object);   
     } }

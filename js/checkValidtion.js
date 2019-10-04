@@ -8,7 +8,7 @@ const input = document.forms.noteForm.taskDes ;
         checkValidDesc = true ;
         formInputs.task = value;
         input.setAttribute( 'style','background-color: aliceblue  !important');
-        //check if child is appended.
+    //check if child is appended.
     if(errorMsgOn === true){
         removeMsg();
         errorMsgOn= false;
@@ -56,7 +56,7 @@ const input = document.forms.noteForm.taskDes ;
         } } }
 //------------- Get the Time --------------//
 function checkTime(){
-    //--- time vars --- //
+    //--- take the input time and split him to hours & minutes. --- //
     const value = document.forms.noteForm.timePicker.value;
     const timeInput = document.forms.noteForm.timePicker;
     var separateTime = value.split(":");
@@ -77,13 +77,17 @@ function checkTime(){
     var dateByNow = {dayPicked : newDate.getDate() ,monthPicked : newDate.getMonth(),yearPicked : newDate.getFullYear() };
     dateByNow.monthPicked += 1;
     //----- now check if time is valid ----//
+    //--- if time is empty its okay becuse time is not required ---//
     if(document.forms.noteForm.timePicker.value === ""){
         errorMsgCheckIfOn(timeInput);
         checkValidTime = true;}
+    //--- if the date you choes equal to today ---//
     if(inputDate === dateByNow.dayPicked){
+    // -- if picked hour smaller then now hour show error msg --//
     if(pickedHour < nowHour){
         errorMsgCheckIfOff(timeInput);
         checkValidTime = false;
+    //-- else if pick hour equal to now hour but the minutes are smaller show error msg -- //
     } else if (pickedHour === nowHour && pickedminutes < nowMinutes){
         errorMsgCheckIfOff(timeInput);
         checkValidTime = false;
@@ -106,6 +110,7 @@ function removeMsg(){
     const formId = document.getElementById("noteForm");
     formId.removeChild(formId.lastChild);
 }
+// -- check if error msg appear on the page -- //
 function errorMsgCheckIfOff(inputId){
     if(errorMsgOn === false){
         errorMsg();

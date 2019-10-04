@@ -36,6 +36,7 @@ input{
     background-image: url('imgs/notebg.png');
     height: 250px;
     background-repeat: no-repeat;
+    max-width: 200px;
 }
 #notetxt{
     font-family: 'Baloo Bhaina', cursive;
@@ -44,9 +45,9 @@ input{
     overflow: auto;
     max-width: 140px;
     height: 160px;
-    max-height:165px;
-    right: 70px;
-    top: 30px;
+    max-height: 165px;
+    right: 10%;
+    top: 10%;
 }
 #dateCss{
     font-family: 'Coming Soon', cursive;
@@ -64,7 +65,7 @@ input{
     position: absolute;
     color: red;
     bottom : 110px;
-    left: -70px;
+    left:-20px;
     font-size: 30px;
 }
 #alertDeletedNotes{
