@@ -1,31 +1,45 @@
+var validNotes = new Array () ;
+
 function onLoad(){
-    // delet if time passed
-    beforeOnLoad();
-    // -- read again if the number of notes change after validtion of time -- //
     get = localStorage.getItem("numberOfNotesJason");
     noteslength = JSON.parse(get);
-    // -- if there is no notes clear the memory -- //
-    if(noteslength === 0){
-    localStorage.clear();}
-    //print all the notes.
-    for(i = 1 ; i < noteslength + 1 ;i++){
+    //--- if number of notes = 0 clear memory //
+    if(noteslength === 0){localStorage.clear();}
+    // delet if time passed
+    beforeOnLoad();
+    //get all notes and Rearranges them by numbers;
+    for(j = 1 ; j < noteslength +1 ;j++){
+        text = localStorage.getItem(j);
+        newObj = JSON.parse(text);
+    if(newObj != null){
+        validNotes.push(newObj);
+    }}
+    //--- now update them to memory --- //
+    for(g = 0 ; g < validNotes.length ;g++){
+    myJSON = JSON.stringify(validNotes[g]);
+    localStorage.setItem(g+1, myJSON);
+    }
+    //write all the notes.
+    for(i = 1 ; i < validNotes.length+1 ;i++){
     text = localStorage.getItem(i);
     newObj = JSON.parse(text);
     createNote(newObj.task,newObj.date,newObj.time);
-    }}
+    }
+    //update number of notes to memory //
+    localStorage.setItem("numberOfNotesJason", validNotes.length);
+    //-- reset the array -- //
+    validNotes = new Array ();
+}
 function beforeOnLoad(){
     text = localStorage.getItem("numberOfNotesJason");
     numberBeforeOnLoad = JSON.parse(text);
     //--- check if the date & time passed and delet --- //
-    for (i = 1 ; i <= numberBeforeOnLoad ;i++){
+    for (i = 1 ; i < numberBeforeOnLoad +1 ;i++){
     text = localStorage.getItem(i);
     newObj = JSON.parse(text);
-    checkIfDateAndTimePass(newObj,i);
-    }}
+    checkIfDateAndTimePass(newObj,i);}
+    }
 function checkIfDateAndTimePass(object,numberOfObject){
-    // -- get number of notes -- // 
-    getNotes = localStorage.getItem("numberOfNotesJason");
-    notes = JSON.parse(getNotes);
     //-- time from now -- //
     var newDate = new Date();
     var dateByNow = {dayByNow : newDate.getDate() ,mouthByNow : newDate.getMonth(),yearByNow : newDate.getFullYear() , hourByNow : newDate.getHours() , minutesByNow : newDate.getMinutes() };
@@ -42,33 +56,15 @@ function checkIfDateAndTimePass(object,numberOfObject){
     //------ Check ------- //
     //--- if day pass --- //
     if( year <= dateByNow.yearByNow && mouth <= dateByNow.mouthByNow && day < dateByNow.dayByNow){
-    while(numberOfObject < notes + 1){
-        localStorage.setItem(numberOfObject, localStorage.getItem(numberOfObject + 1));
-        numberOfObject += 1;
-        }
+        localStorage.removeItem(numberOfObject);
         CreateBoxForDeletedNotes(object);
-        notes -= 1;
-        localStorage.setItem("numberOfNotesJason", notes);
-        numberBeforeOnLoad -= 1 ;
     //--- if hours pass at same day ---- //
     } else if (year === dateByNow.yearByNow && mouth === dateByNow.mouthByNow && day === dateByNow.dayByNow && hour < dateByNow.hourByNow){
-    while(numberOfObject < notes + 1){
-        localStorage.setItem(numberOfObject, localStorage.getItem(numberOfObject + 1));
-        numberOfObject += 1;
-    }
-        notes -= 1;
-        localStorage.setItem("numberOfNotesJason", notes);
-        numberBeforeOnLoad -= 1 ;
+        localStorage.removeItem(numberOfObject);
         CreateBoxForDeletedNotes(object);     }
     //--- if the same hour and minutes pass -- //
     else if(year === dateByNow.yearByNow && mouth === dateByNow.mouthByNow && day === dateByNow.dayByNow && hour === dateByNow.hourByNow && minutes <= dateByNow.minutesByNow){
-    while(numberOfObject < notes + 1){
-        localStorage.setItem(numberOfObject, localStorage.getItem(numberOfObject + 1));
-        numberOfObject += 1;
-    }
-        notes -= 1;
-        localStorage.setItem("numberOfNotesJason", notes);
-        numberBeforeOnLoad -= 1 ;
+        localStorage.removeItem(numberOfObject);
         CreateBoxForDeletedNotes(object);   
     } }
 // -- create text with the deletd task name -- //

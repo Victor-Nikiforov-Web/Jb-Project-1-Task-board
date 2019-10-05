@@ -102,8 +102,7 @@ function deletNote(obj){
         }
         oldNumberGet = localStorage.getItem("numberOfNotesJason");
         oldNumber = JSON.parse(oldNumberGet);
-        oldNumber -= 1; 
-        localStorage.setItem("numberOfNotesJason", oldNumber);
+        localStorage.setItem("numberOfNotesJason", oldNumber -1);
 }
 function createIcon(obj) {
     if(noteIcon === false){

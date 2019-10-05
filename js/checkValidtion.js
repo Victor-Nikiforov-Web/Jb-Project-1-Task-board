@@ -151,7 +151,7 @@ function checkInputsOnSend(){
             errorMsgOn= true;
     }}
     // --- time input check ---// 
-    if (checkValidTime === false || timeInputValue === ""){
+    if (checkValidTime === false){
         timeInput.setAttribute( 'style','background-color: red !important');
     if(errorMsgOn === false){
             errorMsg();
